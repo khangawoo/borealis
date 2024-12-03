@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { AudioRecorder, AudioUtils } from 'react-native-audio';
-import { Svg, Rect } from 'react-native-svg';
 import images from "../constants/images";
 import captureDecibels from '../components/captureDecibels';
 import Waveform from '../components/waveform';

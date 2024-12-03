@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import notifications from './notifications';
 
 export const captureDecibels = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [decibels, setDecibels] = useState<number>(0);
     const [meteringData, setMeteringData] = useState<number>(0);
     const [waveformData, setWaveformData] = useState<number[]>(Array(10).fill(0));
+    const { scheduleNotification, notificationPermission } = notifications();
 
     const referenceOffset = 80;
 
@@ -27,6 +29,13 @@ export const captureDecibels = () => {
             // Calculate decibels (current metering + reference offset for adjustment)
             const currentDecibels = Math.max(0, data.currentMetering + referenceOffset);
             setDecibels(currentDecibels);
+
+            // Notifications
+            if (notificationPermission) {
+                if (currentDecibels > 60) {
+                scheduleNotification('High Volume Detected', `Decibel level: ${currentDecibels.toFixed(2)} exceeds 70!`);
+                }
+            }
 
             // Waveform
             setWaveformData((prevData) => {
