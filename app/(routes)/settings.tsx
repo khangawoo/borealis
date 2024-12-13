@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import images from "../../constants/images";
 
@@ -12,34 +12,36 @@ const Settings = () => {
             className="flex-1 justify-center items-center"
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
-            style={{ paddingBottom: 80 }} 
+            style={{ paddingBottom: 80 }}
         >
             <TouchableOpacity
                 className="w-64 h-12 bg-white/10 justify-center items-center mb-4 rounded-lg"
-                onPress={() => router.push('/presets')}
+                onPress={() => router.replace('/presets')}
             >
                 <Text className="text-lg text-white">Presets</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
                 className="w-64 h-12 bg-white/10 justify-center items-center mb-4 rounded-lg"
-                onPress={() => router.push('/notifications')}>
-                    <Text className="text-lg text-white">Notifications</Text>
+                onPress={() => router.replace('/notifications')}
+            >
+                <Text className="text-lg text-white">Notifications</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity                 
+            <TouchableOpacity
                 className="w-64 h-12 bg-white/10 justify-center items-center mb-4 rounded-lg"
-                onPress={() => router.push('/threshold')}>
-                    <Text className="text-lg text-white">Threshold</Text>
+                onPress={() => router.replace('/threshold')}
+            >
+                <Text className="text-lg text-white">Threshold</Text>
             </TouchableOpacity>
 
             <View style={{ position: 'absolute', bottom: 50 }}>
-                <Link href="/home">
+                <TouchableOpacity onPress={() => router.replace('/home')}>
                     <Image
                         source={images.settings}
                         style={{ width: 50, height: 50 }}
                     />
-                </Link>
+                </TouchableOpacity>
             </View>
         </LinearGradient>
     );

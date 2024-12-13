@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import notifications from './notifications';
+import { useGlobalContext } from '../context/GlobalProvider';
 
 export const captureDecibels = () => {
     const [isRecording, setIsRecording] = useState(false);
@@ -8,6 +9,7 @@ export const captureDecibels = () => {
     const [meteringData, setMeteringData] = useState<number>(0);
     const [waveformData, setWaveformData] = useState<number[]>(Array(10).fill(0));
     const { scheduleNotification, notificationPermission } = notifications();
+    const { lowerThreshold, setLowerThreshold, upperThreshold, setUpperThreshold } = useGlobalContext()
 
     const referenceOffset = 80;
 
@@ -32,8 +34,13 @@ export const captureDecibels = () => {
 
             // Notifications
             if (notificationPermission) {
-                if (currentDecibels > 60) {
-                scheduleNotification('High Volume Detected', `Decibel level: ${currentDecibels.toFixed(2)} exceeds 70!`);
+                console.log('Lower Threshold:', lowerThreshold);  // Log to verify the value
+                console.log('Upper Threshold:', upperThreshold);  // Log to verify the value
+                if (currentDecibels < lowerThreshold) {
+                    scheduleNotification('Low Volume Detected', `Decibel level: ${currentDecibels.toFixed(2)} lower than ${lowerThreshold}!`);
+                }
+                else if (currentDecibels > upperThreshold) {
+                    scheduleNotification('High Volume Detected', `Decibel level: ${currentDecibels.toFixed(2)} exceeds ${upperThreshold}!`);
                 }
             }
 

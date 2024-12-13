@@ -3,7 +3,7 @@ import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
 export const notifications = () => {
-  const [notificationPermission, setNotificationPermission] = useState(false);
+  const [notificationPermission, setNotificationPermission] = useState(true);
 
   useEffect(() => {
     // Setting notification handler for received notifications

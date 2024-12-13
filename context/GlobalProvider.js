@@ -4,34 +4,19 @@ const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
 
 const GlobalProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [lowerThreshold, setLowerThreshold] = useState('0'); 
+    const [upperThreshold, setUpperThreshold] = useState('60'); 
 
-    useEffect(() => {
-        getUser()
-            .then((res) => {
-                if(res) {
-                    setIsLoggedIn(true);
-                    setUser(res);
-                } else {
-                    setIsLoggedIn(false)
-                    setUser(null)
-                }
-             })
-             .catch((error) => {
-                console.log(error)
-             })
-             .finally(() => {
-                setIsLoading(false)
-             })
-    }, [])
+    console.log('Lower Threshold gp:', lowerThreshold);  // Log to verify the value
+    console.log('Upper Threshold gp:', upperThreshold);  // Log to verify the value
 
     return (
         <GlobalContext.Provider
             value={{
-                user,
-                setUser,
-                isLoading,
+                lowerThreshold, 
+                setLowerThreshold,
+                upperThreshold, 
+                setUpperThreshold
             }}
         >
             {children}

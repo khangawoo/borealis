@@ -1,9 +1,11 @@
 import { Stack } from "expo-router";
-import { View, Text } from "react-native";
+import GlobalProvider from "../../context/GlobalProvider";
 
 const RoutesLayout = () => {
     return (
-        <Stack screenOptions={{ headerShown: false}}></Stack>
+        <GlobalProvider>
+            <Stack screenOptions={{ headerShown: false}}></Stack>
+        </GlobalProvider>
     )
 }
 
